@@ -29,7 +29,7 @@
         width: 1920px;
         height: 1080px;
         border: 0;
-        transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
+        transform: scale(var(--scale, 1));
         transform-origin: center;
         box-shadow: 0 34px 110px rgba(38, 48, 64, 0.18);
       }
@@ -49,6 +49,11 @@
       const music = document.getElementById("music");
       let startedAt = 0;
 
+      const fit = () => {
+        const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        iframe.style.setProperty("--scale", scale.toString());
+      };
+
       const tick = (now) => {
         if (!startedAt) startedAt = now;
         const time = ((now - startedAt) / 1000) % 30;
@@ -57,6 +62,8 @@
       };
 
       iframe.addEventListener("load", () => {
+        fit();
+        window.addEventListener("resize", fit);
         requestAnimationFrame(tick);
         music.volume = 0.34;
         music.play().catch(() => {
