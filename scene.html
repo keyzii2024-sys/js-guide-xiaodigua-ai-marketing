@@ -118,10 +118,9 @@ button.onclick = () =&gt; submit(result)
       <div class="progress"><i></i></div>
     </main>
 
-    <script src="./gsap.min.js"></script>
     <script>
       window.__timelines = window.__timelines || {};
-      window.__timelines.main = gsap.timeline({ paused: true }).to({}, { duration: 30 });
+      window.__timelines.main = { duration: () => 30 };
 
       window.setCaptureTime = (time) => {
         const t = Math.max(0, Math.min(29.999, Number(time) || 0));
